@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<title>Mariage Alexis & Ashley</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500&family=Montserrat:wght@300;400&display=swap" rel="stylesheet">
+
+<style>
+
+body{
+background:#f9f6f7;
+font-family: 'Montserrat', sans-serif;
+text-align:center;
+margin:0;
+display:flex;
+justify-content:center;
+align-items:center;
+height:100vh;
+}
+
+.card{
+background:white;
+padding:60px;
+border:2px solid #d8a2b8;
+max-width:500px;
+width:90%;
+box-shadow:0 10px 30px rgba(0,0,0,0.05);
+}
+
+h1{
+font-family:'Playfair Display',serif;
+color:#d8a2b8;
+font-size:60px;
+margin-bottom:10px;
+}
+
+h2{
+font-family:'Playfair Display',serif;
+font-weight:500;
+margin-top:0;
+letter-spacing:2px;
+}
+
+.subtitle{
+color:#777;
+margin-bottom:40px;
+}
+
+input{
+width:80%;
+padding:15px;
+font-size:16px;
+border:1px solid #ddd;
+border-radius:6px;
+margin-bottom:20px;
+}
+
+button{
+padding:14px 30px;
+background:#d8a2b8;
+border:none;
+color:white;
+font-size:16px;
+border-radius:6px;
+cursor:pointer;
+transition:0.3s;
+}
+
+button:hover{
+background:#c489a3;
+}
+
+#result{
+margin-top:30px;
+font-size:22px;
+font-weight:500;
+}
+
+.date{
+margin-top:40px;
+color:#d8a2b8;
+letter-spacing:2px;
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="card">
+
+<h1>Bienvenue</h1>
+
+<h2>Alexis & Ashley</h2>
+
+<p class="subtitle">
+Scannez et découvrez votre table
+</p>
+
+<input id="guestName" placeholder="Entrez votre nom">
+
+<br>
+
+<button onclick="findTable()">Découvrir ma table</button>
+
+<div id="result"></div>
+
+<p class="date">5 JUIN 2026</p>
+
+</div>
+
+<script>
+
+const guests = {
+
+"marie dupont":"Table 8",
+"paul martin":"Table 3",
+"julie bernard":"Table 5",
+"thomas petit":"Table 2"
+
+}
+
+function findTable(){
+
+let name = document.getElementById("guestName").value.toLowerCase()
+
+if(guests[name]){
+document.getElementById("result").innerHTML =
+"✨ "+name+" — "+guests[name]
+}
+
+else{
+document.getElementById("result").innerHTML =
+"Nom introuvable"
+}
+
+}
+
+</script>
+
+</body>
+</html>
