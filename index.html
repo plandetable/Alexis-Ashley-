@@ -1,7 +1,11 @@
 <!DOCTYPE html>
 <html lang="fr">
+
 <head>
+
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <title>Mariage Alexis & Ashley</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500&family=Montserrat:wght@300;400&display=swap" rel="stylesheet">
@@ -10,13 +14,12 @@
 
 body{
 background:#f9f6f7;
-font-family: 'Montserrat', sans-serif;
-text-align:center;
-margin:0;
+font-family:'Montserrat',sans-serif;
 display:flex;
 justify-content:center;
 align-items:center;
 height:100vh;
+margin:0;
 }
 
 .card{
@@ -25,6 +28,7 @@ padding:60px;
 border:2px solid #d8a2b8;
 max-width:500px;
 width:90%;
+text-align:center;
 box-shadow:0 10px 30px rgba(0,0,0,0.05);
 }
 
@@ -35,11 +39,17 @@ font-size:60px;
 margin-bottom:10px;
 }
 
+.wedding{
+letter-spacing:3px;
+text-transform:uppercase;
+font-size:14px;
+color:#777;
+margin-bottom:10px;
+}
+
 h2{
 font-family:'Playfair Display',serif;
 font-weight:500;
-margin-top:0;
-letter-spacing:2px;
 }
 
 .subtitle{
@@ -72,9 +82,34 @@ background:#c489a3;
 }
 
 #result{
-margin-top:30px;
-font-size:22px;
-font-weight:500;
+margin-top:20px;
+}
+
+.suggestion{
+padding:10px;
+cursor:pointer;
+border-bottom:1px solid #eee;
+}
+
+.suggestion:hover{
+background:#f6e8ee;
+}
+
+.tableResult{
+margin-top:25px;
+font-size:24px;
+animation:fadeIn 0.8s ease;
+}
+
+@keyframes fadeIn{
+0%{
+opacity:0;
+transform:translateY(10px);
+}
+100%{
+opacity:1;
+transform:translateY(0);
+}
 }
 
 .date{
@@ -84,6 +119,7 @@ letter-spacing:2px;
 }
 
 </style>
+
 </head>
 
 <body>
@@ -91,6 +127,8 @@ letter-spacing:2px;
 <div class="card">
 
 <h1>Bienvenue</h1>
+
+<p class="wedding">au mariage de</p>
 
 <h2>Alexis & Ashley</h2>
 
@@ -102,7 +140,9 @@ Scannez et découvrez votre table
 
 <br>
 
-<button onclick="findTable()">Découvrir ma table</button>
+<button onclick="findTable()">
+Découvrir ma table
+</button>
 
 <div id="result"></div>
 
@@ -113,27 +153,79 @@ Scannez et découvrez votre table
 <script>
 
 const guests = {
-
 "marie dupont":"Table 8",
 "paul martin":"Table 3",
 "julie bernard":"Table 5",
 "thomas petit":"Table 2"
+}
+
+const input = document.getElementById("guestName")
+const result = document.getElementById("result")
+
+input.addEventListener("input",function(){
+
+let value = input.value.toLowerCase()
+
+result.innerHTML=""
+
+if(value.length < 2) return
+
+for(let guest in guests){
+
+if(guest.includes(value)){
+
+let suggestion = document.createElement("div")
+
+suggestion.className="suggestion"
+
+suggestion.innerText=capitalize(guest)
+
+suggestion.onclick=()=>{
+
+input.value=guest
+
+showTable(guest)
 
 }
+
+result.appendChild(suggestion)
+
+}
+
+}
+
+})
 
 function findTable(){
 
-let name = document.getElementById("guestName").value.toLowerCase()
+let name=input.value.toLowerCase().trim()
+
+showTable(name)
+
+}
+
+function showTable(name){
 
 if(guests[name]){
-document.getElementById("result").innerHTML =
-"✨ "+name+" — "+guests[name]
+
+result.innerHTML =
+`<div class="tableResult">
+✨ ${capitalize(name)} — ${guests[name]}
+</div>`
+
 }
 
 else{
-document.getElementById("result").innerHTML =
-"Nom introuvable"
+
+result.innerHTML="Nom introuvable"
+
 }
+
+}
+
+function capitalize(name){
+
+return name.replace(/\b\w/g,l=>l.toUpperCase())
 
 }
 
